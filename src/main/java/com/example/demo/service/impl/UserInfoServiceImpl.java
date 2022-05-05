@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,16 +24,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public ResponseEntity<UserInfo> getAll() {
+    public ResponseEntity<List<UserInfo>> getAll() {
         try {
-            List<UserInfo> userInfos = repository.findAll();
-            for (UserInfo userInfo : userInfos) {
-                return new ResponseEntity<>(userInfo, HttpStatus.OK);
-            }
+
+            List<UserInfo> items = new ArrayList<UserInfo>(repository.findAll());
+
+            if (items.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            return new ResponseEntity<>(items, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(new UserInfo(), HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return null;
     }
 
     @Override
@@ -58,8 +62,20 @@ public class UserInfoServiceImpl implements UserInfoService {
             Optional<UserInfo> optional = repository.findById(id);
             if (optional.isPresent()) {
                 UserInfo info2 = optional.get();
+                /* UserInfo info2 = new UserInfo(); */
                 // TODO: Logic
-                return new ResponseEntity<>(info2, HttpStatus.OK);
+                info2.setFirstName(info.getFirstName());
+                info2.setLastName(info.getLastName());
+                info2.setUserName(info.getUserName());
+                info2.setGender(info.getGender());
+                info2.setGmail(info.getGmail());
+                info2.setIdentifyId(info.getIdentifyId());
+                info2.setPassword(info.getPassword());
+                info2.setPostalCode(info.getPostalCode());
+                info2.setAddress(info.getAddress());
+                info2.setAge(info.getAge());
+                info2.setUptDate(new Date());
+                return new ResponseEntity<>(repository.save(info2), HttpStatus.OK);
             } else {
                 HttpHeaders body = new HttpHeaders();
                 body.add("Status", "No update!!");

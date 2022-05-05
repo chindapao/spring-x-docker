@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import com.example.demo.model.entities.UserInfo;
 import com.example.demo.service.impl.UserInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ public class UserInfoController {
     }
 
     @GetMapping(value = "user")
-    public ResponseEntity<UserInfo> getAll() {
+    public ResponseEntity<List<UserInfo>> getAll() {
         return service.getAll();
     }
 

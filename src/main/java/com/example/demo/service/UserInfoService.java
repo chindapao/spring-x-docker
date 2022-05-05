@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.model.entities.UserInfo;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public interface UserInfoService {
-    public ResponseEntity<UserInfo> getAll();
+    public ResponseEntity<List<UserInfo>> getAll();
 
     public ResponseEntity<UserInfo> getById(Long id);
 
