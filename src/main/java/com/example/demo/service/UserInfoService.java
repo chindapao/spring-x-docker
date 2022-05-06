@@ -16,5 +16,5 @@ public interface UserInfoService {
 
     public ResponseEntity<UserInfo> update(Long id, UserInfo info);
 
-    public ResponseEntity<HttpStatus> delele(Long id);
+    public ResponseEntity<HttpStatus> delete(Long id);
 }

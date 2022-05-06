@@ -49,6 +49,6 @@ public class UserInfoController {
 
     @DeleteMapping(value = "id")
     public ResponseEntity<HttpStatus> delete(@RequestParam Long id) {
-        return service.delele(id);
+        return service.delete(id);
     }
 }
