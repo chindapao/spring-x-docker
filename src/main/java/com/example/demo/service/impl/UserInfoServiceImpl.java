@@ -4,12 +4,9 @@ import com.example.demo.model.entities.UserInfo;
 import com.example.demo.repository.UserInfoRepo;
 import com.example.demo.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,7 +47,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     public ResponseEntity<List<UserInfo>> getAll() {
         try {
 
-            List<UserInfo> items = new ArrayList<UserInfo>(repository.findAll());
+            List<UserInfo> items = new ArrayList<>(repository.findAll());
 
             if (items.isEmpty())
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -67,9 +64,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         return info.map(userInfo -> new ResponseEntity<>(userInfo, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(new UserInfo(), HttpStatus.NO_CONTENT));
     }
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
     @Override
     public ResponseEntity<UserInfo> create(UserInfo info) {
         try {
@@ -81,9 +75,13 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfo.setGmail(info.getGmail());
             userInfo.setAddress(info.getAddress());
             userInfo.setAge(info.getAge());
-            userInfo.setPassword(passwordEncoder.encode(info.getPassword()));
+            userInfo.setPassword(info.getPassword());
             userInfo.setIdentifyId(info.getIdentifyId());
             userInfo.setPostalCode(info.getPostalCode());
+            userInfo.setStatus(info.getStatus());
+            userInfo.setTitle(info.getTitle());
+            userInfo.setPosition(info.getPosition());
+            userInfo.setUserPf(info.getUserPf());
             userInfo.setUptDate(new Date());
             UserInfo userInfo2 = repository.save(userInfo);
             return new ResponseEntity<>(userInfo2, HttpStatus.CREATED);
@@ -99,20 +97,6 @@ public class UserInfoServiceImpl implements UserInfoService {
             Optional<UserInfo> optional = repository.findById(id);
             if (optional.isPresent()) {
                 UserInfo info2 = optional.get();
-                // TODO: Logic
-                /*
-                 * info2.setFirstName(validateInputStr(info.getFirstName()));
-                 * info2.setLastName(validateInputStr(info.getLastName()));
-                 * info2.setUserName(validateInputStr(info.getUserName()));
-                 * info2.setGender(validateInputStr(info.getGender()));
-                 * info2.setGmail(validateInputGmail(info.getGmail()));
-                 * info2.setIdentifyId(validateInputStr(info.getIdentifyId()));
-                 * info2.setPassword(info.getPassword());
-                 * info2.setPostalCode(validateInputStr(info.getPostalCode()));
-                 * info2.setAddress(validateInputStr(info.getAddress()));
-                 * info2.setAge(validateInputStr(info.getAge()));
-                 * info2.setUptDate(new Date());
-                 */
                 info2.setFirstName(info.getFirstName());
                 info2.setLastName(info.getLastName());
                 info2.setUserName(info.getUserName());
@@ -123,6 +107,10 @@ public class UserInfoServiceImpl implements UserInfoService {
                 info2.setPassword(info.getPassword());
                 info2.setIdentifyId(info.getIdentifyId());
                 info2.setPostalCode(info.getPostalCode());
+                info2.setStatus(info.getStatus());
+                info2.setTitle(info.getTitle());
+                info2.setPosition(info.getPosition());
+                info2.setUserPf(info.getUserPf());
                 info2.setUptDate(new Date());
 
                 return new ResponseEntity<>(repository.save(info2), HttpStatus.OK);

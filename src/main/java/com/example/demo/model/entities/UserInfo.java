@@ -25,6 +25,11 @@ public class UserInfo implements Serializable {
     private String gmail;
     private String password;
 
+    private String status;
+    private String title;
+    private String position;
+    private String userPf;
+
     private Date regDate;
     private Date uptDate;
 
