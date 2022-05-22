@@ -1,9 +1,9 @@
-package com.example.demo.controller;
+package com.example.demo.controllers;
 
 import java.util.List;
 
-import com.example.demo.model.entities.UserInfo;
-import com.example.demo.service.impl.UserInfoServiceImpl;
+import com.example.demo.models.entities.UserInfo;
+import com.example.demo.services.impl.UserInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

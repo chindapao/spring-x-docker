@@ -1,8 +1,8 @@
-package com.example.demo.service.impl;
+package com.example.demo.services.impl;
 
-import com.example.demo.model.entities.UserInfo;
+import com.example.demo.models.entities.UserInfo;
 import com.example.demo.repository.UserInfoRepo;
-import com.example.demo.service.UserInfoService;
+import com.example.demo.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

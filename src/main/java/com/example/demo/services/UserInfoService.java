@@ -1,8 +1,8 @@
-package com.example.demo.service;
+package com.example.demo.services;
 
 import java.util.List;
 
-import com.example.demo.model.entities.UserInfo;
+import com.example.demo.models.entities.UserInfo;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
